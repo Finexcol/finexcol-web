@@ -982,26 +982,23 @@
         }
 
         function calcularCuota() {
-    const monto = parseFloat(document.getElementById('monto').value);
-    const plazo = parseInt(document.getElementById('plazo').value);
-    const cobros = obtenerCobros(monto);
+            const monto = parseFloat(document.getElementById('monto').value);
+            const plazo = parseInt(document.getElementById('plazo').value);
+            const cobros = obtenerCobros(monto);
 
-    const gmf = monto * GMF_RATE;
-    const totalCobros = cobros.cobroFijo + cobros.cobroVariable + gmf;
-    const capitalAFinanciar = monto + totalCobros;
+            const gmf = monto * GMF_RATE;
+            const totalCobros = cobros.cobroFijo + cobros.cobroVariable + gmf;
+            const capitalAFinanciar = monto + totalCobros;
 
-    const numerador = TASA_BASE * Math.pow(1 + TASA_BASE, plazo);
-    const denominador = Math.pow(1 + TASA_BASE, plazo) - 1;
-    const cuota = capitalAFinanciar * (numerador / denominador);
+            const numerador = TASA_BASE * Math.pow(1 + TASA_BASE, plazo);
+            const denominador = Math.pow(1 + TASA_BASE, plazo) - 1;
+            const cuota = capitalAFinanciar * (numerador / denominador);
 
-    // REDONDEAR A MILES (como en el original)
-    const cuotaRedondeada = Math.round(cuota / 1000) * 1000;
-    
-    const totalPagado = cuotaRedondeada * plazo;
+            const totalPagado = cuota * plazo;
 
-    document.getElementById('resultCuota').textContent = formatCurrency(cuotaRedondeada);
-    document.getElementById('resultTotal').textContent = formatCurrency(totalPagado);
-}
+            document.getElementById('resultCuota').textContent = formatCurrency(cuota);
+            document.getElementById('resultTotal').textContent = formatCurrency(totalPagado);
+        }
 
         function actualizarResumen() {
             document.getElementById('resumenNombre').textContent = document.getElementById('nombre').value;
@@ -1011,29 +1008,17 @@
         }
 
         async function enviarSolicitud() {
-    const datos = {
-        nombre: document.getElementById('nombre').value,
-        documento: document.getElementById('documento').value,
-        email: document.getElementById('email').value,
-        celular: document.getElementById('celular').value,
-        monto: parseFloat(document.getElementById('monto').value),
-        plazo: parseInt(document.getElementById('plazo').value),
-        cuota: parseFloat(document.getElementById('resultCuota').textContent.replace(/[^\d]/g, '')),
-        total: parseFloat(document.getElementById('resultTotal').textContent.replace(/[^\d]/g, '')),
-        observaciones: document.getElementById('observaciones').value
-    };
-
-    // MOSTRAR MENSAJE DE ÉXITO (sin backend por ahora)
-    alert('✓ Solicitud registrada correctamente.\n\nTus datos:\n' + 
-        'Nombre: ' + datos.nombre + '\n' +
-        'Monto: $' + datos.monto.toLocaleString('es-CO') + '\n' +
-        'Cuota: $' + datos.cuota.toLocaleString('es-CO') + '\n' +
-        'Plazo: ' + datos.plazo + ' meses\n\n' +
-        'En el próximo paso habilitaremos el envío automático por email.');
-    
-    cerrarModal();
-    resetearFormulario();
-};
+            const datos = {
+                nombre: document.getElementById('nombre').value,
+                documento: document.getElementById('documento').value,
+                email: document.getElementById('email').value,
+                celular: document.getElementById('celular').value,
+                monto: parseFloat(document.getElementById('monto').value),
+                plazo: parseInt(document.getElementById('plazo').value),
+                cuota: parseFloat(document.getElementById('resultCuota').textContent.replace(/[^\d]/g, '')),
+                total: parseFloat(document.getElementById('resultTotal').textContent.replace(/[^\d]/g, '')),
+                observaciones: document.getElementById('observaciones').value
+            };
 
             try {
                 // Enviar a backend
