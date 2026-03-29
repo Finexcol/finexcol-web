@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Simulador de Créditos - Finexcol</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #0052A3 0%, #00A8E8 100%);
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  color: white;
+  margin-bottom: 40px;
+}
+
+.header h1 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.header p {
+  font-size: 16px;
+  opacity: 0.9;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.card h2 {
+  color: #0052A3;
+  font-size: 22px;
+  margin-bottom: 25px;
+  border-bottom: 2px solid #00A8E8;
+  padding-bottom: 15px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #E0E0E0;
+  border-radius: 6px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #00A8E8;
+  box-shadow: 0 0 10px rgba(0,168,232,0.2);
+}
+
+.form-group input[type="range"] {
+  padding: 0;
+  height: 8px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.slider-value {
+  display: inline-block;
+  background: #00A8E8;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 4px;
+  margin-left: 10px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.tasa-display {
+  background: #F5F7FA;
+  padding: 12px 15px;
+  border-radius: 6px;
+  border-left: 4px solid #00A8E8;
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: #0052A3;
+  font-weight: bold;
+}
+
+.tasa-info {
+  font-size: 12px;
+  color: #666;
+  margin-top: 5px;
+}
+
+.result-item {
+  background: #F5F7FA;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  border-left: 4px solid #00A8E8;
+}
+
+.result-label {
+  color: #666;
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+
+.result-value {
+  color: #0052A3;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.result-small {
+  font-size: 16px;
+}
+
+.button {
+  width: 100%;
+  background: linear-gradient(135deg, #0052A3, #00A8E8);
+  color: white;
+  border: none;
+  padding: 15px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,82,163,0.3);
+}
+
+.button:active {
+  transform: translateY(0);
+}
+
+.info-banner {
+  background: #E8F4F8;
+  border-left: 4px solid #00A8E8;
+  padding: 15px;
+  border-radius: 6px;
+  color: #0052A3;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.table-container {
+  grid-column: 1 / -1;
+  overflow-x: auto;
+}
+
+.table-container h2 {
+  color: #0052A3;
+  font-size: 22px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #00A8E8;
+  padding-bottom: 15px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+thead {
+  background: linear-gradient(135deg, #0052A3, #00A8E8);
+  color: white;
+}
+
+th {
+  padding: 15px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+
+td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #E0E0E0;
+  font-size: 14px;
+}
+
+tr:hover {
+  background: #F5F7FA;
+}
+
+.currency {
+  color: #0052A3;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .content {
+    grid-template-columns: 1fr;
+  }
+  
+  .header h1 {
+    font-size: 24px;
+  }
+  
+  table {
+    font-size: 12px;
+  }
+  
+  th, td {
+    padding: 10px 8px;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <h1>💰 Simulador de Créditos</h1>
+    <p>Financial Express Colombia - Calcula tu crédito en segundos</p>
+  </div>
+
+  <div class="content">
+    <!-- FORMULARIO -->
+    <div class="card">
+      <h2>Parámetros del Crédito</h2>
+      
+      <div class="form-group">
+        <label for="monto">Monto del Crédito (COP)</label>
+        <input type="number" id="monto" placeholder="ej: 2000000" min="100000" max="150000000" value="9000000" step="100000">
+        <small style="color: #999; display: block; margin-top: 5px;">Mínimo: $100.000 | Máximo: $150.000.000</small>
+      </div>
+
+      <div class="form-group">
+        <label for="plazo">Plazo (meses)
+          <span class="slider-value"><span id="plazoValue">12</span> meses</span>
+        </label>
+        <input type="range" id="plazo" min="6" max="60" value="12" step="1">
+        <small style="color: #999; display: block; margin-top: 5px;">Plazo: 6 a 60 meses</small>
+      </div>
+
+      <div class="tasa-display">
+        📊 Tasa de Interés Mensual: <span id="tasaMostrada">1.8340</span>%
+        <div class="tasa-info">Tasa ajustada para cuota en valores enteros</div>
+      </div>
+
+      <div class="info-banner">
+        <strong>ℹ️ Información:</strong> Tasa fija ajustada para que tu cuota sea un valor entero en pesos. La tasa se ajusta automáticamente según monto y plazo.
+      </div>
+
+      <button class="button" onclick="simular()">Simular Crédito</button>
+    </div>
+
+    <!-- RESULTADOS -->
+    <div class="card">
+      <h2>Resultados de la Simulación</h2>
+
+      <div class="result-item">
+        <div class="result-label">Monto del Crédito</div>
+        <div class="result-value currency" id="resultMonto">$9.000.000</div>
+      </div>
+
+      <div class="result-item">
+        <div class="result-label">Plazo</div>
+        <div class="result-value result-small currency" id="resultPlazo">12 meses</div>
+      </div>
+
+      <div class="result-item">
+        <div class="result-label">Cuota Mensual (Valor Entero)</div>
+        <div class="result-value currency" id="resultCuota">$851.000</div>
+      </div>
+
+      <div class="result-item">
+        <div class="result-label">Total a Pagar</div>
+        <div class="result-value currency" id="resultTotal">$10.212.000</div>
+      </div>
+
+      <div class="result-item">
+        <div class="result-label">Total Costo (Intereses + Comisiones)</div>
+        <div class="result-value currency" id="resultIntereses">$1.212.000</div>
+      </div>
+
+      <button class="button" onclick="descargarPDF()" style="background: linear-gradient(135deg, #27AE60, #2ECC71);">
+        📥 Descargar Plan de Pagos
+      </button>
+    </div>
+  </div>
+
+  <!-- TABLA DE AMORTIZACIÓN -->
+  <div class="card table-container">
+    <h2>Plan de Amortización Detallado</h2>
+    <table id="tablaAmortizacion">
+      <thead>
+        <tr>
+          <th>Cuota</th>
+          <th>Fecha</th>
+          <th>Valor Cuota</th>
+          <th>Capital</th>
+          <th>Interés</th>
+          <th>Saldo Pendiente</th>
+        </tr>
+      </thead>
+      <tbody id="cuerpoTabla">
+        <!-- Se llenará con JavaScript -->
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+const TASA_BASE = 0.0183; // 1.83% - tasa base mostrada al usuario
+const GMF_RATE = 0.004; // 4x1000 = 0.004
+
+// Tabla de cobros según tramos de monto
+const TABLA_COBROS = [
+  { minMonto: 0, maxMonto: 10000000, cobroFijo: 20000, cobroVariable: 0.004 },
+  { minMonto: 10000001, maxMonto: 20000000, cobroFijo: 40000, cobroVariable: 0.002 },
+  { minMonto: 20000001, maxMonto: 150000000, cobroFijo: 60000, cobroVariable: 0.001 }
+];
+
+// Actualizar valor del plazo en el slider
+document.getElementById('plazo').addEventListener('input', function() {
+  document.getElementById('plazoValue').textContent = this.value;
+});
+
+function formatCurrency(value) {
+  return new Intl.NumberFormat('es-CO', {
+    style: 'currency',
+    currency: 'COP',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0
+  }).format(value);
+}
+
+function obtenerCobros(monto) {
+  for (let tramo of TABLA_COBROS) {
+    if (monto >= tramo.minMonto && monto <= tramo.maxMonto) {
+      return {
+        cobroFijo: tramo.cobroFijo,
+        cobroVariable: monto * tramo.cobroVariable
+      };
+    }
+  }
+  const ultimoTramo = TABLA_COBROS[TABLA_COBROS.length - 1];
+  return {
+    cobroFijo: ultimoTramo.cobroFijo,
+    cobroVariable: monto * ultimoTramo.cobroVariable
+  };
+}
+
+function calcularCuota(monto, tasa, plazo, cobros) {
+  const cobroFijo = cobros.cobroFijo;
+  const cobroVariable = cobros.cobroVariable;
+  const gmf = monto * GMF_RATE;
+  const totalCobros = cobroFijo + cobroVariable + gmf;
+  const capitalAFinanciar = monto + totalCobros;
+  
+  if (tasa === 0) {
+    return capitalAFinanciar / plazo;
+  }
+  
+  const numerador = tasa * Math.pow(1 + tasa, plazo);
+  const denominador = Math.pow(1 + tasa, plazo) - 1;
+  const cuota = capitalAFinanciar * (numerador / denominador);
+  
+  return cuota;
+}
+
+function calcularTasaReal(monto, plazo, cuota) {
+  let tasa = 0.01;
+  const maxIteraciones = 100;
+  const tolerancia = 0.000001;
+  
+  for (let i = 0; i < maxIteraciones; i++) {
+    const factor = Math.pow(1 + tasa, plazo);
+    const f = monto * (tasa * factor) / (factor - 1) - cuota;
+    
+    const h = tasa * 0.0001;
+    const factor_h = Math.pow(1 + tasa + h, plazo);
+    const f_h = monto * ((tasa + h) * factor_h) / (factor_h - 1) - cuota;
+    const derivada = (f_h - f) / h;
+    
+    if (Math.abs(f) < tolerancia) {
+      return tasa;
+    }
+    
+    if (Math.abs(derivada) < 0.0001) {
+      break;
+    }
+    
+    tasa = tasa - f / derivada;
+    tasa = Math.max(0.0001, Math.min(tasa, 0.5));
+  }
+  
+  return tasa;
+}
+
+function goalSeek(monto, plazo, cobros, cuotaTarget, tasaInicial) {
+  let tasa = tasaInicial;
+  const tolerancia = 0.01;
+  const maxIteraciones = 100;
+  let iteracion = 0;
+  
+  while (iteracion < maxIteraciones) {
+    const cuotaActual = calcularCuota(monto, tasa, plazo, cobros);
+    const error = cuotaActual - cuotaTarget;
+    
+    if (Math.abs(error) < tolerancia) {
+      return tasa;
+    }
+    
+    const delta = tasa * 0.0001;
+    const cuotaPlus = calcularCuota(monto, tasa + delta, plazo, cobros);
+    const derivada = (cuotaPlus - cuotaActual) / delta;
+    
+    if (Math.abs(derivada) > 0.001) {
+      tasa = tasa - (error / derivada);
+      tasa = Math.max(0.001, Math.min(tasa, 0.1));
+    } else {
+      break;
+    }
+    
+    iteracion++;
+  }
+  
+  return tasa;
+}
+
+function simular() {
+  const monto = parseFloat(document.getElementById('monto').value);
+  const plazo = parseInt(document.getElementById('plazo').value);
+
+  if (!monto || !plazo) {
+    alert('Por favor ingresa todos los parámetros');
+    return;
+  }
+
+  const cobros = obtenerCobros(monto);
+  const cuotaInicial = calcularCuota(monto, TASA_BASE, plazo, cobros);
+  const cuotaRedondeada = Math.round(cuotaInicial / 1000) * 1000;
+  
+  const tasaMostrada = goalSeek(monto, plazo, cobros, cuotaRedondeada, TASA_BASE);
+  const cuotaFinal = calcularCuota(monto, tasaMostrada, plazo, cobros);
+  const tasaReal = calcularTasaReal(monto, plazo, cuotaFinal);
+  
+  const totalPagado = cuotaFinal * plazo;
+  const totalCostos = totalPagado - monto;
+
+  const tasaMostradaFormatted = (tasaMostrada * 100).toFixed(4);
+  
+  document.getElementById('tasaMostrada').textContent = tasaMostradaFormatted;
+  document.getElementById('resultMonto').textContent = formatCurrency(monto);
+  document.getElementById('resultPlazo').textContent = plazo + ' meses';
+  document.getElementById('resultCuota').textContent = formatCurrency(cuotaFinal);
+  document.getElementById('resultTotal').textContent = formatCurrency(totalPagado);
+  document.getElementById('resultIntereses').textContent = formatCurrency(totalCostos);
+
+  generarTablaAmortizacion(monto, tasaReal, plazo, cuotaFinal);
+}
+
+function generarTablaAmortizacion(monto, tasaReal, plazo, cuota) {
+  const tbody = document.getElementById('cuerpoTabla');
+  tbody.innerHTML = '';
+
+  let saldoActual = monto;
+  const fechaInicio = new Date();
+
+  for (let i = 1; i <= plazo; i++) {
+    const interes = saldoActual * tasaReal;
+    const capital = cuota - interes;
+    saldoActual -= capital;
+
+    const fecha = new Date(fechaInicio);
+    fecha.setMonth(fecha.getMonth() + i);
+    const fechaFormato = fecha.toLocaleDateString('es-CO');
+
+    const saldoFinal = Math.max(0, saldoActual);
+
+    const fila = document.createElement('tr');
+    fila.innerHTML = `
+      <td><strong>${i}</strong></td>
+      <td>${fechaFormato}</td>
+      <td class="currency">${formatCurrency(cuota)}</td>
+      <td class="currency">${formatCurrency(capital)}</td>
+      <td class="currency">${formatCurrency(interes)}</td>
+      <td class="currency">${formatCurrency(saldoFinal)}</td>
+    `;
+    tbody.appendChild(fila);
+  }
+}
+
+function descargarPDF() {
+  const monto = parseFloat(document.getElementById('monto').value);
+  if (!monto) {
+    alert('Por favor simula un crédito primero');
+    return;
+  }
+  alert('Función de descarga en desarrollo. Por ahora puedes imprimir directamente desde tu navegador (Ctrl+P)');
+}
+
+window.addEventListener('load', simular);
+</script>
+
+</body>
+</html>
