@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "dependencies": {
-    "nodemailer": "^6.9.4",
+    "@sendgrid/mail": "^7.7.0",
     "pdf-lib": "^1.17.1"
   }
 }
