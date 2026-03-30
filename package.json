@@ -1,0 +1,23 @@
+{
+  "name": "finexcol-web",
+  "version": "1.0.0",
+  "description": "Sitio web de créditos rápidos Finexcol",
+  "type": "module",
+  "main": "index.html",
+  "scripts": {
+    "dev": "node server.js",
+    "build": "echo 'No build needed for Vercel'"
+  },
+  "dependencies": {
+    "nodemailer": "^6.9.4",
+    "pdf-lib": "^1.17.1"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "creditos",
+    "finanzas",
+    "colombia"
+  ],
+  "author": "Finexcol",
+  "license": "MIT"
+}
