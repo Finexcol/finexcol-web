@@ -1,1 +1,9 @@
-
+{
+  "name": "finexcol-web",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "nodemailer": "^6.9.4",
+    "pdf-lib": "^1.17.1"
+  }
+}
