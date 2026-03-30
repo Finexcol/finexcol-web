@@ -4,93 +4,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contacto - Finexcol | Créditos Rápidos</title>
-    <link rel="stylesheet" href="styles.css">
     <style>
-        body {
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-
-        .contact-container {
-            width: 100%;
-            max-width: 600px;
             padding: 20px;
         }
 
-        .contact-card {
+        .container {
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .card {
             background: white;
             border-radius: 10px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
             padding: 40px;
-            animation: slideIn 0.5s ease-out;
         }
 
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .contact-card h1 {
+        h1 {
             color: #333;
-            margin-top: 0;
             margin-bottom: 10px;
             font-size: 28px;
         }
 
-        .contact-card p {
+        .subtitle {
             color: #666;
             margin-bottom: 30px;
             line-height: 1.6;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .alert.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+
+        .alert.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
         }
 
         .form-group {
             margin-bottom: 20px;
         }
 
-        .form-group label {
+        label {
             display: block;
             margin-bottom: 8px;
             color: #333;
             font-weight: 500;
         }
 
-        .form-group input,
-        .form-group textarea {
+        input, textarea {
             width: 100%;
             padding: 12px;
             border: 1px solid #ddd;
             border-radius: 5px;
             font-size: 14px;
             font-family: inherit;
-            box-sizing: border-box;
             transition: border-color 0.3s;
         }
 
-        .form-group input:focus,
-        .form-group textarea:focus {
+        input:focus, textarea:focus {
             outline: none;
             border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
 
-        .form-group textarea {
+        textarea {
             resize: vertical;
             min-height: 120px;
         }
 
-        .submit-btn {
+        button {
             width: 100%;
             padding: 14px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -103,52 +110,13 @@
             transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        .submit-btn:hover {
+        button:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
         }
 
-        .submit-btn:active {
+        button:active {
             transform: translateY(0);
-        }
-
-        .submit-btn.loading {
-            opacity: 0.7;
-            cursor: not-allowed;
-        }
-
-        .submit-btn.loading::after {
-            content: ' Enviando...';
-        }
-
-        .success-message {
-            display: none;
-            background-color: #d4edda;
-            color: #155724;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            border: 1px solid #c3e6cb;
-            animation: slideIn 0.3s ease-out;
-        }
-
-        .success-message.show {
-            display: block;
-        }
-
-        .error-message {
-            display: none;
-            background-color: #f8d7da;
-            color: #721c24;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            border: 1px solid #f5c6cb;
-            animation: slideIn 0.3s ease-out;
-        }
-
-        .error-message.show {
-            display: block;
         }
 
         .back-link {
@@ -160,7 +128,6 @@
             color: #667eea;
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s;
         }
 
         .back-link a:hover {
@@ -168,28 +135,28 @@
         }
 
         @media (max-width: 600px) {
-            .contact-card {
+            .card {
                 padding: 30px 20px;
             }
 
-            .contact-card h1 {
+            h1 {
                 font-size: 24px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="contact-container">
-        <div class="contact-card">
+    <div class="container">
+        <div class="card">
             <h1>Contacto</h1>
-            <p>¿Tienes preguntas? ¡Estamos aquí para ayudarte!</p>
+            <p class="subtitle">¿Tienes preguntas? ¡Estamos aquí para ayudarte!</p>
 
-            <div class="success-message" id="successMessage">
-                ✅ ¡Gracias! Hemos recibido tu solicitud. En breve te enviaremos un correo con el plan de pagos.
+            <div id="successAlert" class="alert success">
+                ✅ ¡Gracias! Hemos recibido tu solicitud. Nos pondremos en contacto contigo pronto.
             </div>
 
-            <div class="error-message" id="errorMessage">
-                ❌ Hubo un error al enviar tu solicitud. Por favor, intenta de nuevo.
+            <div id="errorAlert" class="alert error">
+                ❌ Por favor completa todos los campos correctamente.
             </div>
 
             <form id="contactForm">
@@ -213,7 +180,7 @@
                     <textarea id="mensaje" name="mensaje" required placeholder="Cuéntanos cómo podemos ayudarte..."></textarea>
                 </div>
 
-                <button type="submit" class="submit-btn" id="submitBtn">Enviar Solicitud</button>
+                <button type="submit">Enviar Solicitud</button>
             </form>
 
             <div class="back-link">
@@ -223,99 +190,55 @@
     </div>
 
     <script>
-        document.getElementById('contactForm').addEventListener('submit', async (e) => {
+        const form = document.getElementById('contactForm');
+        const successAlert = document.getElementById('successAlert');
+        const errorAlert = document.getElementById('errorAlert');
+
+        form.addEventListener('submit', function(e) {
             e.preventDefault();
 
-            const submitBtn = document.getElementById('submitBtn');
-            const successMessage = document.getElementById('successMessage');
-            const errorMessage = document.getElementById('errorMessage');
+            // Ocultar alertas anteriores
+            successAlert.style.display = 'none';
+            errorAlert.style.display = 'none';
 
-            // Limpiar mensajes anteriores
-            successMessage.classList.remove('show');
-            errorMessage.classList.remove('show');
+            // Obtener datos
+            const nombre = document.getElementById('nombre').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const celular = document.getElementById('celular').value.trim();
+            const mensaje = document.getElementById('mensaje').value.trim();
 
-            // Obtener datos del formulario
-            const nombre = document.getElementById('nombre').value;
-            const email = document.getElementById('email').value;
-            const celular = document.getElementById('celular').value;
-            const mensaje = document.getElementById('mensaje').value;
-
-            // Deshabilitar botón
-            submitBtn.disabled = true;
-            submitBtn.classList.add('loading');
-
-            try {
-                // Enviar al servidor
-                const response = await fetch('/api/send-email', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        nombreCliente: nombre,
-                        emailCliente: email,
-                        celular: celular,
-                        mensaje: mensaje,
-                        monto: 1000000, // Valores por defecto para la tabla
-                        plazo: 12,
-                        tasaInteres: 2.5,
-                        cuotaMensual: 90000,
-                        cuotas: generarCuotas(1000000, 12, 2.5) // Se genera en el frontend
-                    })
-                });
-
-                const data = await response.json();
-
-                if (response.ok) {
-                    successMessage.classList.add('show');
-                    document.getElementById('contactForm').reset();
-                } else {
-                    throw new Error(data.error || 'Error desconocido');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                errorMessage.textContent = `❌ ${error.message}`;
-                errorMessage.classList.add('show');
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.classList.remove('loading');
+            // Validar
+            if (!nombre || !email || !celular || !mensaje) {
+                errorAlert.style.display = 'block';
+                return;
             }
+
+            // Guardar en localStorage
+            const solicitud = {
+                nombre: nombre,
+                email: email,
+                celular: celular,
+                mensaje: mensaje,
+                fecha: new Date().toLocaleString('es-CO')
+            };
+
+            let solicitudes = JSON.parse(localStorage.getItem('solicitudes')) || [];
+            solicitudes.push(solicitud);
+            localStorage.setItem('solicitudes', JSON.stringify(solicitudes));
+
+            // Mostrar éxito
+            successAlert.style.display = 'block';
+
+            // Limpiar formulario
+            form.reset();
+
+            // Ocultar mensaje después de 3 segundos
+            setTimeout(() => {
+                successAlert.style.display = 'none';
+            }, 3000);
+
+            console.log('Solicitud guardada:', solicitud);
         });
-
-        // Función para generar cuotas (igual a la del simulador)
-        function generarCuotas(monto, plazo, tasaMensual) {
-            const cuotas = [];
-            let saldoActual = parseFloat(monto);
-            const cuotaMensual = calcularCuota(monto, plazo, tasaMensual);
-
-            for (let i = 1; i <= plazo; i++) {
-                const interes = saldoActual * (tasaMensual / 100);
-                const capital = cuotaMensual - interes;
-                const saldoFinal = Math.max(0, saldoActual - capital);
-
-                cuotas.push({
-                    cuota: i,
-                    saldoInicial: saldoActual,
-                    pago: cuotaMensual,
-                    interes: interes,
-                    capital: capital,
-                    saldoFinal: saldoFinal
-                });
-
-                saldoActual = saldoFinal;
-            }
-
-            return cuotas;
-        }
-
-        // Función para calcular cuota mensual
-        function calcularCuota(monto, plazo, tasaMensual) {
-            const tasaDecimal = tasaMensual / 100;
-            if (tasaDecimal === 0) {
-                return monto / plazo;
-            }
-            return monto * (tasaDecimal * Math.pow(1 + tasaDecimal, plazo)) / (Math.pow(1 + tasaDecimal, plazo) - 1);
-        }
     </script>
 </body>
 </html>
