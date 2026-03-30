@@ -3,275 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contacto - Finexcol | Financial Express Colombia</title>
+    <title>Contacto - Finexcol | Créditos Rápidos</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
-        * {
+        body {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary-dark: #0052A3;
-            --primary-light: #00A8E8;
-            --accent: #00D4FF;
-            --dark-bg: #0F1419;
-            --card-bg: #1A1F2E;
-            --text-primary: #FFFFFF;
-            --text-secondary: #B0B8C8;
-            --border: #2A3142;
-            --success: #00D68F;
-        }
-
-        body {
-            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
-            line-height: 1.6;
-            color: var(--text-primary);
-            background: var(--dark-bg);
-        }
-
-        /* ===== HEADER ===== */
-        header {
-            background: linear-gradient(135deg, rgba(0, 82, 163, 0.95) 0%, rgba(0, 168, 232, 0.85) 100%);
-            backdrop-filter: blur(10px);
-            padding: 15px 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 8px 32px rgba(0, 82, 163, 0.3);
-            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
-        }
-
-        header .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
             display: flex;
             align-items: center;
-            gap: 15px;
-            text-decoration: none;
-            color: white;
-            font-weight: bold;
-            font-size: 18px;
+            justify-content: center;
         }
 
-        .logo img {
-            height: 45px;
-            object-fit: contain;
-            filter: brightness(1.1);
-        }
-
-        nav {
-            display: flex;
-            gap: 40px;
-            list-style: none;
-        }
-
-        nav a {
-            color: rgba(255, 255, 255, 0.95);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 15px;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent);
-            transition: width 0.3s ease;
-        }
-
-        nav a:hover::after {
+        .contact-container {
             width: 100%;
+            max-width: 600px;
+            padding: 20px;
         }
 
-        nav a:hover {
-            color: var(--accent);
+        .contact-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            animation: slideIn 0.5s ease-out;
         }
 
-        /* ===== BREADCRUMB ===== */
-        .breadcrumb {
-            background: linear-gradient(135deg, rgba(0, 82, 163, 0.1) 0%, transparent 100%);
-            padding: 15px 40px;
-            color: var(--text-secondary);
-            font-size: 14px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .breadcrumb .container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .breadcrumb a {
-            color: var(--accent);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .breadcrumb a:hover {
-            color: var(--primary-light);
-        }
-
-        /* ===== CONTAINER ===== */
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 40px;
-        }
-
-        /* ===== MAIN ===== */
-        main {
-            min-height: calc(100vh - 250px);
-            padding: 80px 40px;
-        }
-
-        h1 {
-            color: var(--text-primary);
-            font-size: 48px;
-            margin-bottom: 20px;
-            text-align: center;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .intro {
-            text-align: center;
-            color: var(--text-secondary);
-            margin-bottom: 60px;
-            font-size: 18px;
-            line-height: 1.8;
-        }
-
-        /* ===== CONTENT ===== */
-        .content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-        }
-
-        /* ===== FORMULARIO ===== */
-        .formulario-section {
-            background: linear-gradient(135deg, rgba(26, 31, 46, 0.8) 0%, rgba(42, 49, 66, 0.8) 100%);
-            padding: 45px;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            box-shadow: 0 8px 32px rgba(0, 82, 163, 0.15);
-        }
-
-        .formulario-section h2 {
-            color: var(--accent);
-            margin-bottom: 30px;
-            font-size: 28px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        label {
-            display: block;
-            color: var(--accent);
-            font-weight: 600;
-            margin-bottom: 10px;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        input, textarea, select {
-            width: 100%;
-            padding: 14px 16px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            font-size: 15px;
-            font-family: inherit;
-            transition: all 0.3s ease;
-            background: rgba(15, 20, 25, 0.5);
-            color: var(--text-primary);
-        }
-
-        input::placeholder, textarea::placeholder {
-            color: var(--text-secondary);
-        }
-
-        input:focus, textarea:focus, select:focus {
-            outline: none;
-            border-color: var(--accent);
-            background: rgba(0, 82, 163, 0.1);
-            box-shadow: 0 0 20px rgba(0, 168, 232, 0.2);
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 140px;
-        }
-
-        .btn-submit {
-            width: 100%;
-            background: linear-gradient(135deg, var(--primary-light), var(--accent));
-            color: var(--dark-bg);
-            border: none;
-            padding: 16px;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 8px 24px rgba(0, 168, 232, 0.3);
-        }
-
-        .btn-submit:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 32px rgba(0, 168, 232, 0.5);
-        }
-
-        .btn-submit:active {
-            transform: translateY(0);
-        }
-
-        /* ===== MENSAJE DE ÉXITO ===== */
-        .success-message {
-            display: none;
-            background: rgba(0, 214, 143, 0.15);
-            border: 2px solid var(--success);
-            color: var(--success);
-            padding: 18px;
-            border-radius: 8px;
-            margin-bottom: 25px;
-            text-align: center;
-            font-weight: 600;
-            animation: slideDown 0.3s ease;
-        }
-
-        .success-message.show {
-            display: block;
-        }
-
-        @keyframes slideDown {
+        @keyframes slideIn {
             from {
                 opacity: 0;
-                transform: translateY(-10px);
+                transform: translateY(20px);
             }
             to {
                 opacity: 1;
@@ -279,362 +42,280 @@
             }
         }
 
-        /* ===== INFO SECTION ===== */
-        .info-section {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
+        .contact-card h1 {
+            color: #333;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 28px;
         }
 
-        .info-card {
-            background: linear-gradient(135deg, rgba(26, 31, 46, 0.8) 0%, rgba(42, 49, 66, 0.8) 100%);
-            padding: 30px;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            border-left: 4px solid var(--accent);
-            transition: all 0.3s ease;
+        .contact-card p {
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
         }
 
-        .info-card:hover {
-            border-color: var(--accent);
-            transform: translateX(8px);
-            box-shadow: 0 8px 32px rgba(0, 168, 232, 0.15);
+        .form-group {
+            margin-bottom: 20px;
         }
 
-        .info-card h3 {
-            color: var(--accent);
-            margin-bottom: 12px;
-            font-size: 18px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
         }
 
-        .info-card p {
-            color: var(--text-secondary);
-            font-size: 15px;
-            line-height: 1.8;
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            font-family: inherit;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
         }
 
-        .info-card .icon {
-            font-size: 40px;
-            margin-bottom: 15px;
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn.loading {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .submit-btn.loading::after {
+            content: ' Enviando...';
+        }
+
+        .success-message {
+            display: none;
+            background-color: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #c3e6cb;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .success-message.show {
             display: block;
         }
 
-        /* ===== FOOTER ===== */
-        footer {
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(15, 20, 25, 0.95) 100%);
-            border-top: 1px solid var(--border);
-            padding: 60px 40px 30px;
-        }
-
-        footer .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        footer h3 {
+        .error-message {
+            display: none;
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
             margin-bottom: 20px;
-            color: var(--accent);
-            font-size: 16px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            border: 1px solid #f5c6cb;
+            animation: slideIn 0.3s ease-out;
         }
 
-        footer p, footer a {
-            color: var(--text-secondary);
-            font-size: 14px;
-            margin-bottom: 12px;
-            line-height: 1.8;
+        .error-message.show {
+            display: block;
         }
 
-        footer a {
-            color: var(--accent);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        footer a:hover {
-            color: var(--primary-light);
-        }
-
-        .footer-bottom {
+        .back-link {
             text-align: center;
-            border-top: 1px solid var(--border);
-            padding-top: 30px;
-            color: var(--text-secondary);
-            font-size: 14px;
+            margin-top: 20px;
         }
 
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 768px) {
-            header .container {
-                padding: 0 20px;
-                flex-direction: column;
-                gap: 15px;
-            }
-
-            nav {
-                gap: 20px;
-                flex-direction: column;
-            }
-
-            .breadcrumb {
-                padding: 15px 20px;
-            }
-
-            main {
-                padding: 50px 20px;
-            }
-
-            .content {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-
-            h1 {
-                font-size: 36px;
-            }
-
-            .intro {
-                font-size: 16px;
-                margin-bottom: 40px;
-            }
-
-            .formulario-section {
-                padding: 30px;
-            }
-
-            .formulario-section h2 {
-                font-size: 22px;
-            }
-
-            footer .container {
-                padding: 0 20px;
-                gap: 30px;
-            }
+        .back-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
         }
 
-        @media (max-width: 480px) {
-            header .container {
-                padding: 0 15px;
+        .back-link a:hover {
+            color: #764ba2;
+        }
+
+        @media (max-width: 600px) {
+            .contact-card {
+                padding: 30px 20px;
             }
 
-            .logo img {
-                height: 35px;
-            }
-
-            nav {
-                gap: 15px;
-                flex-direction: column;
-            }
-
-            main {
-                padding: 30px 15px;
-            }
-
-            h1 {
-                font-size: 28px;
-            }
-
-            .intro {
-                font-size: 14px;
-            }
-
-            .formulario-section,
-            .info-card {
-                padding: 20px;
-            }
-
-            .formulario-section h2 {
-                font-size: 18px;
-            }
-
-            input, textarea, select {
-                padding: 12px 14px;
-                font-size: 14px;
-            }
-
-            .btn-submit {
-                padding: 14px;
-                font-size: 14px;
+            .contact-card h1 {
+                font-size: 24px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- HEADER -->
-    <header>
-        <div class="container">
-            <a href="index_premium.html" class="logo">
-                <img src="https://raw.githubusercontent.com/Finexcol/finexcol-web/main/logo-finexcol.jpg" alt="Finexcol Logo">
-                <span>Finexcol</span>
-            </a>
-            <nav>
-                <a href="index_premium.html">Inicio</a>
-                <a href="index_premium.html#beneficios">Beneficios</a>
-                <a href="simulador.html">Simulador</a>
-                <a href="contact.html">Contacto</a>
-            </nav>
-        </div>
-    </header>
+    <div class="contact-container">
+        <div class="contact-card">
+            <h1>Contacto</h1>
+            <p>¿Tienes preguntas? ¡Estamos aquí para ayudarte!</p>
 
-    <!-- BREADCRUMB -->
-    <div class="breadcrumb">
-        <div class="container">
-            <a href="index_premium.html">Inicio</a> / Contacto
+            <div class="success-message" id="successMessage">
+                ✅ ¡Gracias! Hemos recibido tu solicitud. En breve te enviaremos un correo con el plan de pagos.
+            </div>
+
+            <div class="error-message" id="errorMessage">
+                ❌ Hubo un error al enviar tu solicitud. Por favor, intenta de nuevo.
+            </div>
+
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="nombre">Nombre Completo *</label>
+                    <input type="text" id="nombre" name="nombre" required placeholder="Ej: Juan García">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Correo Electrónico *</label>
+                    <input type="email" id="email" name="email" required placeholder="tu@email.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="celular">Número de Celular *</label>
+                    <input type="tel" id="celular" name="celular" required placeholder="+57 300 123 4567">
+                </div>
+
+                <div class="form-group">
+                    <label for="mensaje">Mensaje *</label>
+                    <textarea id="mensaje" name="mensaje" required placeholder="Cuéntanos cómo podemos ayudarte..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">Enviar Solicitud</button>
+            </form>
+
+            <div class="back-link">
+                <a href="index.html">← Volver al inicio</a>
+            </div>
         </div>
     </div>
 
-    <!-- MAIN -->
-    <main>
-        <div class="container">
-            <h1>Contáctanos</h1>
-            <p class="intro">¿Tienes preguntas o necesitas más información? Nos encantaría ayudarte. Completa el formulario y nos comunicaremos en las próximas 24 horas.</p>
-
-            <div class="content">
-                <!-- FORMULARIO -->
-                <div class="formulario-section">
-                    <div class="success-message" id="successMessage">
-                        ✅ ¡Mensaje enviado correctamente! Nos comunicaremos pronto.
-                    </div>
-
-                    <h2>Envíanos un Mensaje</h2>
-                    <form id="contactForm">
-                        <div class="form-group">
-                            <label for="nombre">Nombre Completo *</label>
-                            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="email">Correo Electrónico *</label>
-                            <input type="email" id="email" name="email" placeholder="tu@email.com" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="telefono">Teléfono</label>
-                            <input type="tel" id="telefono" name="telefono" placeholder="+57 300 000 0000">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="asunto">Asunto *</label>
-                            <select id="asunto" name="asunto" required>
-                                <option value="">Selecciona un asunto</option>
-                                <option value="Consulta General">Consulta General</option>
-                                <option value="Solicitud de Crédito">Solicitud de Crédito</option>
-                                <option value="Problema Técnico">Problema Técnico</option>
-                                <option value="Otro">Otro</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="mensaje">Mensaje *</label>
-                            <textarea id="mensaje" name="mensaje" placeholder="Cuéntanos tu consulta..." required></textarea>
-                        </div>
-
-                        <button type="submit" class="btn-submit">Enviar Mensaje</button>
-                    </form>
-                </div>
-
-                <!-- INFORMACIÓN DE CONTACTO -->
-                <div class="info-section">
-                    <div class="info-card">
-                        <div class="icon">📧</div>
-                        <h3>Email General</h3>
-                        <p><strong>info@finexcol.com</strong></p>
-                        <p style="margin-top: 10px; font-size: 13px;">Para consultas generales y soporte al cliente</p>
-                    </div>
-
-                    <div class="info-card">
-                        <div class="icon">📋</div>
-                        <h3>Solicitudes de Crédito</h3>
-                        <p><strong>solicitudes@finexcol.com</strong></p>
-                        <p style="margin-top: 10px; font-size: 13px;">Para nuevas solicitudes de crédito y trámites</p>
-                    </div>
-
-                    <div class="info-card">
-                        <div class="icon">⏰</div>
-                        <h3>Horario de Atención</h3>
-                        <p><strong>Disponible 24/7</strong></p>
-                        <p style="margin-top: 10px; font-size: 13px;">Respuesta garantizada en máximo 24 horas</p>
-                    </div>
-
-                    <div class="info-card">
-                        <div class="icon">🔒</div>
-                        <h3>Seguridad & Privacidad</h3>
-                        <p><strong>Datos Protegidos</strong></p>
-                        <p style="margin-top: 10px; font-size: 13px;">Tu información está protegida con encriptación de nivel empresarial</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!-- FOOTER -->
-    <footer>
-        <div class="container">
-            <div>
-                <h3>Finexcol</h3>
-                <p>Financial Express Colombia</p>
-                <p>Créditos rápidos, seguros y confiables para toda Colombia</p>
-            </div>
-            <div>
-                <h3>Enlaces Rápidos</h3>
-                <p><a href="index_premium.html">Inicio</a></p>
-                <p><a href="simulador.html">Simulador de Créditos</a></p>
-                <p><a href="contact.html">Contacto</a></p>
-            </div>
-            <div>
-                <h3>Contacto</h3>
-                <p>📧 info@finexcol.com</p>
-                <p>📧 solicitudes@finexcol.com</p>
-                <p>⏰ Disponible 24/7</p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 Finexcol - Todos los derechos reservados | Financial Express Colombia</p>
-        </div>
-    </footer>
-
     <script>
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
+        document.getElementById('contactForm').addEventListener('submit', async (e) => {
             e.preventDefault();
 
+            const submitBtn = document.getElementById('submitBtn');
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+
+            // Limpiar mensajes anteriores
+            successMessage.classList.remove('show');
+            errorMessage.classList.remove('show');
+
+            // Obtener datos del formulario
             const nombre = document.getElementById('nombre').value;
             const email = document.getElementById('email').value;
-            const telefono = document.getElementById('telefono').value;
-            const asunto = document.getElementById('asunto').value;
+            const celular = document.getElementById('celular').value;
             const mensaje = document.getElementById('mensaje').value;
 
-            const emailBody = `
-Nuevo mensaje de contacto:
+            // Deshabilitar botón
+            submitBtn.disabled = true;
+            submitBtn.classList.add('loading');
 
-Nombre: ${nombre}
-Email: ${email}
-Teléfono: ${telefono}
-Asunto: ${asunto}
+            try {
+                // Enviar al servidor
+                const response = await fetch('/api/send-email', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        nombreCliente: nombre,
+                        emailCliente: email,
+                        celular: celular,
+                        mensaje: mensaje,
+                        monto: 1000000, // Valores por defecto para la tabla
+                        plazo: 12,
+                        tasaInteres: 2.5,
+                        cuotaMensual: 90000,
+                        cuotas: generarCuotas(1000000, 12, 2.5) // Se genera en el frontend
+                    })
+                });
 
-Mensaje:
-${mensaje}
-            `.trim();
+                const data = await response.json();
 
-            const mailtoLink = `mailto:info@finexcol.com?subject=Finexcol: ${asunto}&body=${encodeURIComponent(emailBody)}`;
-
-            document.getElementById('successMessage').classList.add('show');
-            window.location.href = mailtoLink;
-
-            this.reset();
-
-            setTimeout(() => {
-                document.getElementById('successMessage').classList.remove('show');
-            }, 3000);
+                if (response.ok) {
+                    successMessage.classList.add('show');
+                    document.getElementById('contactForm').reset();
+                } else {
+                    throw new Error(data.error || 'Error desconocido');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                errorMessage.textContent = `❌ ${error.message}`;
+                errorMessage.classList.add('show');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('loading');
+            }
         });
+
+        // Función para generar cuotas (igual a la del simulador)
+        function generarCuotas(monto, plazo, tasaMensual) {
+            const cuotas = [];
+            let saldoActual = parseFloat(monto);
+            const cuotaMensual = calcularCuota(monto, plazo, tasaMensual);
+
+            for (let i = 1; i <= plazo; i++) {
+                const interes = saldoActual * (tasaMensual / 100);
+                const capital = cuotaMensual - interes;
+                const saldoFinal = Math.max(0, saldoActual - capital);
+
+                cuotas.push({
+                    cuota: i,
+                    saldoInicial: saldoActual,
+                    pago: cuotaMensual,
+                    interes: interes,
+                    capital: capital,
+                    saldoFinal: saldoFinal
+                });
+
+                saldoActual = saldoFinal;
+            }
+
+            return cuotas;
+        }
+
+        // Función para calcular cuota mensual
+        function calcularCuota(monto, plazo, tasaMensual) {
+            const tasaDecimal = tasaMensual / 100;
+            if (tasaDecimal === 0) {
+                return monto / plazo;
+            }
+            return monto * (tasaDecimal * Math.pow(1 + tasaDecimal, plazo)) / (Math.pow(1 + tasaDecimal, plazo) - 1);
+        }
     </script>
 </body>
 </html>
