@@ -1,7 +1,5 @@
 import nodemailer from 'nodemailer';
 import { PDFDocument, rgb } from 'pdf-lib';
-import fs from 'fs';
-import path from 'path';
 
 export default async function handler(req, res) {
   // Solo POST
@@ -10,6 +8,23 @@ export default async function handler(req, res) {
   }
 
   try {
+    // LOG: Verificar si las variables existen
+    console.log('=== EMAIL SENDER LOG ===');
+    console.log('EMAIL_USER:', process.env.EMAIL_USER ? '✅ EXISTE' : '❌ NO EXISTE');
+    console.log('EMAIL_PASS:', process.env.EMAIL_PASS ? '✅ EXISTE' : '❌ NO EXISTE');
+
+    // Validar que las variables existan
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+      console.error('❌ ERROR: Variables de entorno NO configuradas');
+      return res.status(500).json({
+        error: 'Credenciales de email no configuradas en Vercel',
+        missingVars: {
+          EMAIL_USER: !process.env.EMAIL_USER,
+          EMAIL_PASS: !process.env.EMAIL_PASS
+        }
+      });
+    }
+
     const {
       nombreCliente,
       emailCliente,
@@ -25,7 +40,12 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Datos incompletos' });
     }
 
+    console.log('✅ Datos recibidos correctamente');
+    console.log('Cliente:', nombreCliente);
+    console.log('Email destino:', emailCliente);
+
     // Generar PDF con tabla de amortización
+    console.log('🔄 Generando PDF...');
     const pdfBuffer = await generarPDF({
       nombreCliente,
       monto,
@@ -34,8 +54,10 @@ export default async function handler(req, res) {
       cuotaMensual,
       cuotas
     });
+    console.log('✅ PDF generado correctamente');
 
     // Configurar transportador de email
+    console.log('🔄 Configurando nodemailer...');
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
@@ -43,6 +65,16 @@ export default async function handler(req, res) {
         pass: process.env.EMAIL_PASS
       }
     });
+
+    // Verificar conexión
+    console.log('🔄 Verificando conexión con Gmail...');
+    try {
+      await transporter.verify();
+      console.log('✅ Conexión con Gmail verificada');
+    } catch (verifyError) {
+      console.error('❌ Error verificando conexión:', verifyError.message);
+      throw new Error(`Conexión Gmail fallida: ${verifyError.message}`);
+    }
 
     // Contenido del email
     const htmlContent = `
@@ -96,13 +128,14 @@ export default async function handler(req, res) {
 
         <div style="background-color: #f8f9fa; padding: 15px 20px; text-align: center; border-top: 1px solid #ddd;">
           <p style="color: #999; font-size: 12px; margin: 0;">
-            Este es un correo automático. Por favor, no responders a este mensaje directamente.
+            Este es un correo automático. Por favor, no responder a este mensaje directamente.
           </p>
         </div>
       </div>
     `;
 
     // Enviar email con PDF adjunto
+    console.log('🔄 Enviando email...');
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: emailCliente,
@@ -117,19 +150,30 @@ export default async function handler(req, res) {
       ]
     };
 
-    await transporter.sendMail(mailOptions);
+    try {
+      const info = await transporter.sendMail(mailOptions);
+      console.log('✅ Email enviado correctamente');
+      console.log('Message ID:', info.messageId);
+      console.log('Response:', info.response);
 
-    return res.status(200).json({
-      success: true,
-      message: 'Email enviado correctamente',
-      email: emailCliente
-    });
+      return res.status(200).json({
+        success: true,
+        message: 'Email enviado correctamente',
+        email: emailCliente,
+        messageId: info.messageId
+      });
+    } catch (sendError) {
+      console.error('❌ Error enviando email:', sendError.message);
+      throw new Error(`Error al enviar: ${sendError.message}`);
+    }
 
   } catch (error) {
-    console.error('Error al enviar email:', error);
+    console.error('❌ ERROR GENERAL:', error.message);
+    console.error('Stack:', error.stack);
     return res.status(500).json({
       error: 'Error al enviar el email',
-      details: error.message
+      details: error.message,
+      stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
     });
   }
 }
@@ -177,7 +221,6 @@ async function generarPDF({ nombreCliente, monto, plazo, tasaInteres, cuotaMensu
     yPosition -= 20;
 
     // Encabezados de tabla
-    const colWidths = [40, 80, 80, 80, 80, 80];
     const xPositions = [30, 70, 150, 230, 310, 390];
     const headerText = ['Cuota', 'Saldo Inicial', 'Pago', 'Interés', 'Capital', 'Saldo Final'];
 
@@ -236,7 +279,7 @@ async function generarPDF({ nombreCliente, monto, plazo, tasaInteres, cuotaMensu
     return Buffer.from(pdfBuffer);
 
   } catch (error) {
-    console.error('Error generando PDF:', error);
+    console.error('Error generando PDF:', error.message);
     throw error;
   }
 }
