@@ -3,241 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contacto - Finexcol | Créditos Rápidos</title>
+    <title>Contacto - Finexcol</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 600px;
-        }
-
-        .card {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-            padding: 40px;
-        }
-
-        h1 {
-            color: #333;
-            margin-bottom: 10px;
-            font-size: 28px;
-        }
-
-        .subtitle {
-            color: #666;
-            margin-bottom: 30px;
-            line-height: 1.6;
-        }
-
-        .alert {
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            display: none;
-        }
-
-        .alert.success {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-            display: block;
-        }
-
-        .alert.error {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-            display: block;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #333;
-            font-weight: 500;
-        }
-
-        input, textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 14px;
-            font-family: inherit;
-            transition: border-color 0.3s;
-        }
-
-        input:focus, textarea:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        button {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
-        }
-
-        button:active {
-            transform: translateY(0);
-        }
-
-        .back-link {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .back-link a {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .back-link a:hover {
-            color: #764ba2;
-        }
-
-        @media (max-width: 600px) {
-            .card {
-                padding: 30px 20px;
-            }
-
-            h1 {
-                font-size: 24px;
-            }
-        }
+        body { font-family: 'Segoe UI'; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .card { background: white; border-radius: 10px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); padding: 40px; max-width: 600px; }
+        h1 { color: #333; margin-bottom: 10px; }
+        .subtitle { color: #666; margin-bottom: 30px; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; color: #333; font-weight: 500; }
+        input, textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; box-sizing: border-box; }
+        input:focus, textarea:focus { outline: none; border-color: #667eea; }
+        textarea { resize: vertical; min-height: 120px; }
+        button { width: 100%; padding: 14px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 5px; font-size: 16px; font-weight: bold; cursor: pointer; }
+        button:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4); }
+        .alert { padding: 15px; border-radius: 5px; margin-bottom: 20px; display: none; }
+        .alert.success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="card">
-            <h1>Contacto</h1>
-            <p class="subtitle">¿Tienes preguntas? ¡Estamos aquí para ayudarte!</p>
-
-            <div id="successAlert" class="alert success">
-                ✅ ¡Gracias! Hemos recibido tu solicitud. Nos pondremos en contacto contigo pronto.
+    <div class="card">
+        <h1>Contacto</h1>
+        <p class="subtitle">¿Tienes preguntas? ¡Estamos aquí para ayudarte!</p>
+        <div id="successAlert" class="alert success">✅ ¡Gracias! Hemos recibido tu solicitud.</div>
+        <form id="contactForm">
+            <div class="form-group">
+                <label for="nombre">Nombre Completo *</label>
+                <input type="text" id="nombre" name="nombre" required>
             </div>
-
-            <div id="errorAlert" class="alert error">
-                ❌ Por favor completa todos los campos correctamente.
+            <div class="form-group">
+                <label for="email">Correo Electrónico *</label>
+                <input type="email" id="email" name="email" required>
             </div>
-
-            <form id="contactForm">
-                <div class="form-group">
-                    <label for="nombre">Nombre Completo *</label>
-                    <input type="text" id="nombre" name="nombre" required placeholder="Ej: Juan García">
-                </div>
-
-                <div class="form-group">
-                    <label for="email">Correo Electrónico *</label>
-                    <input type="email" id="email" name="email" required placeholder="tu@email.com">
-                </div>
-
-                <div class="form-group">
-                    <label for="celular">Número de Celular *</label>
-                    <input type="tel" id="celular" name="celular" required placeholder="+57 300 123 4567">
-                </div>
-
-                <div class="form-group">
-                    <label for="mensaje">Mensaje *</label>
-                    <textarea id="mensaje" name="mensaje" required placeholder="Cuéntanos cómo podemos ayudarte..."></textarea>
-                </div>
-
-                <button type="submit">Enviar Solicitud</button>
-            </form>
-
-            <div class="back-link">
-                <a href="index.html">← Volver al inicio</a>
+            <div class="form-group">
+                <label for="celular">Número de Celular *</label>
+                <input type="tel" id="celular" name="celular" required>
             </div>
-        </div>
+            <div class="form-group">
+                <label for="mensaje">Mensaje *</label>
+                <textarea id="mensaje" name="mensaje" required></textarea>
+            </div>
+            <button type="submit">Enviar Solicitud</button>
+        </form>
     </div>
-
     <script>
         const form = document.getElementById('contactForm');
         const successAlert = document.getElementById('successAlert');
-        const errorAlert = document.getElementById('errorAlert');
-
         form.addEventListener('submit', function(e) {
             e.preventDefault();
-
-            // Ocultar alertas anteriores
-            successAlert.style.display = 'none';
-            errorAlert.style.display = 'none';
-
-            // Obtener datos
-            const nombre = document.getElementById('nombre').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const celular = document.getElementById('celular').value.trim();
-            const mensaje = document.getElementById('mensaje').value.trim();
-
-            // Validar
-            if (!nombre || !email || !celular || !mensaje) {
-                errorAlert.style.display = 'block';
-                return;
-            }
-
-            // Guardar en localStorage
-            const solicitud = {
-                nombre: nombre,
-                email: email,
-                celular: celular,
-                mensaje: mensaje,
-                fecha: new Date().toLocaleString('es-CO')
-            };
-
             let solicitudes = JSON.parse(localStorage.getItem('solicitudes')) || [];
-            solicitudes.push(solicitud);
+            solicitudes.push({
+                nombre: document.getElementById('nombre').value,
+                email: document.getElementById('email').value,
+                celular: document.getElementById('celular').value,
+                mensaje: document.getElementById('mensaje').value,
+                fecha: new Date().toLocaleString('es-CO')
+            });
             localStorage.setItem('solicitudes', JSON.stringify(solicitudes));
-
-            // Mostrar éxito
             successAlert.style.display = 'block';
-
-            // Limpiar formulario
             form.reset();
-
-            // Ocultar mensaje después de 3 segundos
-            setTimeout(() => {
-                successAlert.style.display = 'none';
-            }, 3000);
-
-            console.log('Solicitud guardada:', solicitud);
+            setTimeout(() => { successAlert.style.display = 'none'; }, 3000);
         });
     </script>
 </body>
