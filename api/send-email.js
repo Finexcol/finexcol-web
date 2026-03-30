@@ -36,7 +36,7 @@ export default async function handler(req, res) {
     // Preparar email
     const msg = {
       to: emailCliente,
-      from: 'solicitudes@finexcol.com', // ✅ TU DOMINIO
+      from: 'finexcol@gmail.com', // ✅ CORREO QUE EXISTE
       subject: 'Solicitud de Crédito Finexcol - Plan de Pagos Adjunto',
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
